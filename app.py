@@ -7,6 +7,9 @@ from torchvision import models, transforms
 import numpy as np
 from numpy.linalg import norm
 
+# ---------------------------
+# Streamlit page config
+# ---------------------------
 st.set_page_config(page_title="Retail AI Scanner", layout="wide")
 st.title("🛒 Retail Product Scanner Demo")
 
@@ -22,7 +25,7 @@ img_dir = Path("images")
 catalog = pd.read_csv(catalog_path)
 
 # ---------------------------
-# Load pretrained AlexNet
+# Load pretrained AlexNet (cached)
 # ---------------------------
 @st.cache_resource
 def load_model():
@@ -41,6 +44,9 @@ transform = transforms.Compose([
     transforms.Normalize(mean=[0.485,0.456,0.406], std=[0.229,0.224,0.225])
 ])
 
+# ---------------------------
+# Feature extraction
+# ---------------------------
 def get_features(img_path):
     img = Image.open(img_path).convert("RGB")
     img_t = transform(img).unsqueeze(0)
@@ -49,11 +55,14 @@ def get_features(img_path):
         pooled = torch.nn.functional.adaptive_avg_pool2d(features,(1,1))
         return pooled.view(-1).numpy()
 
+# ---------------------------
+# Cosine similarity
+# ---------------------------
 def cosine_similarity(a,b):
     return np.dot(a,b)/(norm(a)*norm(b))
 
 # ---------------------------
-# Compute embeddings (cache to speed up)
+# Compute embeddings for catalog (cached)
 # ---------------------------
 @st.cache_data
 def compute_embeddings():
