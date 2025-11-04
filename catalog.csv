@@ -1,1 +1,8 @@
-
+sku,name,category,original_price,current_price,is_set,image
+2001,Hair Brush,Home,7.99,5.99,False,hairbrush.jfif
+2002,Suitcase,Travel,59.99,49.99,False,suitcase.jfif
+2003,Backpack,Travel,29.99,24.99,False,backpack.jfif
+2004,Baby Bib,Baby,4.99,3.99,False,babybib.jfif
+2005,Shoes,Clothing,49.99,39.99,False,shoes.jpg
+2006,Pasta Box,Food,2.99,2.49,False,pastabox.png
+2007,White Shirt,Clothing,19.99,14.99,False,whiteshirt.webp
